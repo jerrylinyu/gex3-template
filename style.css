@@ -9,6 +9,10 @@
   src: url('./assets/fonts/Luna.ttf') format('truetype');
 }
 
+[v-cloak] {
+  display: none;
+}
+
 body {
   font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
   background-image: url('./assets/bg-totoro.jpg');
@@ -55,22 +59,6 @@ h1 {
   font-size: 2.5rem;
   letter-spacing: 2px;
   line-height: 2;
-}
-
-.accordion-button {
-  font-family: 'Luna';
-  font-size: 1.5rem !important;
-  font-weight: normal;
-  color: #F7CB9D;
-  background-color: rgba(0,0,0,0);
-  border: none;
-  box-shadow: none;
-  padding: 1rem 1.5rem !important;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  min-height: 72px;
-  line-height: 1.8;
 }
 
 .btn-generate {
@@ -130,7 +118,7 @@ h1 {
   background-repeat: no-repeat;
   height: 112.5px;
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
 #headingOne {
@@ -168,6 +156,31 @@ h1 {
   min-height: 72px;
 }
 
+.accordion-button {
+  font-family: 'Luna';
+  font-size: 1.5rem !important;
+  font-weight: normal;
+  color: #F7CB9D;
+  background-color: rgba(0,0,0,0);
+  border: none;
+  box-shadow: none;
+  padding: 1rem 1.5rem !important;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+  min-height: 72px;
+  line-height: 1.8;
+  position: relative;
+}
+
+.accordion-button::after {
+  transition: transform 0.4s cubic-bezier(0.33, 1, 0.68, 1) !important;
+}
+
+.accordion-button:not(.collapsed)::after {
+  transform: rotate(-180deg) !important;
+}
+
 .accordion-button:not(.collapsed) {
   background-color: rgba(0,0,0,0);
   color: #9FF694;
@@ -180,14 +193,31 @@ h1 {
 }
 
 .accordion-collapse {
+  transition: height 0.45s cubic-bezier(0.33, 1, 0.68, 1) !important;
+  overflow: hidden;
   background-color: #FAE9D2;
-  height: auto !important;
+}
+
+.accordion-collapse.collapsing {
+  transition: height 0.45s cubic-bezier(0.33, 1, 0.68, 1) !important;
 }
 
 .accordion-body {
   background-color: #FAE9D2;
   padding: 1.8rem;
   border-radius: 0;
+  animation: fadeSlideUp 0.4s ease-out;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .form-grid {
